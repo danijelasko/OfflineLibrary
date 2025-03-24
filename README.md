@@ -1,34 +1,31 @@
+
 # Offline Library Management System
 
 ## Project Overview
 
-LibrarySync is a comprehensive library management system designed to function fully offline while offering seamless synchronization capabilities when connectivity is restored. The application enables librarians and users to manage book collections, track borrowing/returning processes, and maintain library operations even without an internet connection. It leverages modern web technologies to provide a responsive, reliable experience in various connectivity scenarios.
+Offline Labrary is a comprehensive library management system designed to function fully offline while offering seamless synchronization capabilities when connectivity is restored. The application enables librarians and users to manage book collections, track borrowing/returning processes, and maintain library operations even without an internet connection. It leverages modern web technologies to provide a responsive, reliable experience in various connectivity scenarios.
 
 ## Key Features
 
 ### Offline Functionality
 - **Complete Offline Access**: Full library management capabilities without internet connection
 - **Offline Check-in/Check-out**: Process book borrowing and returns even when offline
-- **Local Search and Filtering**: Advanced search capabilities for books, members, and transactions
-- **Barcode Scanning Support**: Works offline for quick book or member identification
+- **Local Search and Filtering**: Advanced search capabilities for books, members
 
 ### Synchronization
 - **Background Sync**: Automatic data synchronization when connection is restored
 - **Conflict Resolution**: Smart merging of offline changes with server data
 - **Sync Status Indicators**: Clear visual indicators of synchronization status
-- **Prioritized Sync**: Critical data syncs first when connection is limited
 
 ### Data Management
-- **Book Catalog**: Comprehensive book metadata management including titles, authors, genres, ISBN
-- **Member Management**: Track member information, borrowing history, and account status
+- **Book Catalog**: Comprehensive book metadata management including titles, authors, genres
+- **Member Management**: Track member information, borrowing history
 - **Circulation Tracking**: Monitor book checkouts, returns, reservations, and due dates
-- **Fine Calculation**: Automatic calculation of overdue fines (works offline)
-- **Reports and Analytics**: Usage statistics and library operation insights
 
 ## Technologies Used
 
 ### Frontend
-- **HTML5/CSS3/JavaScript**: Core web technologies
+- **CSS/JavaScript**: Core web technologies
 - **Progressive Web App (PWA)**: For offline capabilities and installable experience
 - **Service Workers**: Enable offline functionality and background synchronization
 - **IndexedDB**: Client-side storage for offline data persistence in browsers
@@ -51,11 +48,10 @@ LibrarySync is a comprehensive library management system designed to function fu
 - **Babel**: JavaScript compiler for compatibility
 - **ESLint**: Code quality and consistency
 - **Jest**: Testing framework
-- **Electron**: (Optional) For desktop application packaging
 
 ## System Architecture
 
-LibrarySync follows a hybrid architecture designed for resilience and offline capabilities:
+Offline Library follows a hybrid architecture designed for resilience and offline capabilities:
 
 1. **Client Tier**
    - Progressive Web App interface with responsive design
@@ -92,7 +88,6 @@ LibrarySync follows a hybrid architecture designed for resilience and offline ca
 - `publishDate`: Publication date
 - `category`: Book category/genre
 - `description`: Book description
-- `location`: Physical location in library
 - `status`: Available, checked out, reserved, etc.
 - `coverImage`: Book cover image (stored as path or blob)
 
@@ -104,17 +99,6 @@ LibrarySync follows a hybrid architecture designed for resilience and offline ca
 - `membershipDate`: Date of joining
 - `membershipStatus`: Active, expired, suspended
 - `borrowingLimit`: Maximum books allowed
-
-**transactions**
-- `id`: Unique identifier
-- `bookId`: Reference to book
-- `memberId`: Reference to member
-- `checkoutDate`: Date of checkout
-- `dueDate`: Expected return date
-- `returnDate`: Actual return date (null if not returned)
-- `fineAmount`: Fine for late returns
-- `status`: Transaction status
-- `syncStatus`: Indicates if transaction is synced with server
 
 **syncQueue**
 - `id`: Unique operation identifier
@@ -203,29 +187,5 @@ library-sync/
 └── package.json                # Project dependencies
 ```
 
-## Contributing
-
-Contributions to LibrarySync are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow the established code style (enforced by ESLint)
-- Write tests for new functionality
-- Update documentation for any changed features
-- Ensure all tests pass before submitting PR
-- Consider offline functionality for all features
-
-### Bug Reports
-If you find a bug, please create an issue with:
-- Detailed description of the problem
-- Steps to reproduce
-- Expected behavior
-- Screenshots if applicable
-- Environment information (browser, OS, device)
 
 
