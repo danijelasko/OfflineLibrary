@@ -1,4 +1,4 @@
-# LibrarySync - Offline Library Management System
+# Offline Library Management System
 
 ## Project Overview
 
@@ -228,6 +228,4 @@ If you find a bug, please create an issue with:
 - Screenshots if applicable
 - Environment information (browser, OS, device)
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
