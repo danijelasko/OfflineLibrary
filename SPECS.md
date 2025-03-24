@@ -26,8 +26,6 @@
 - Advanced search and filtering capabilities that work offline
 - Reading history and progress tracking
 - Lending system with due date reminders
-- Barcode/ISBN scanning for quick additions (camera integration where available)
-
 #### User Management
 - User profiles with reading preferences
 - Reading goals and achievements
@@ -261,8 +259,6 @@ CREATE TABLE SyncLog (
 - Lending system implementation
 - Advanced search and filtering
 - Data visualization and statistics
-- Barcode/ISBN scanning integration
-
 ### Phase 5: Refinement (Weeks 17-20)
 - Performance optimization
 - User experience refinement
