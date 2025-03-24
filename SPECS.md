@@ -230,36 +230,34 @@ CREATE TABLE SyncLog (
 - Optimistic UI updates with rollback capability on sync failure
 
 #### Data Integrity
-- Transaction-based operations ensure data consistency
 - Versioning system for conflict detection
 - Periodic integrity checks and automatic repair
-- Syncing prioritizes critical data (loans, user data) over less time-sensitive data
-
+  
 ## 4. Project Timeline
 
-### Phase 1: Foundation (Weeks 1-4)
+### Phase 1: Foundation 
 - Project setup and architecture design
 - Database schema implementation
 - Basic offline storage functionality
 - UI skeleton implementation
 
-### Phase 2: Core Features (Weeks 5-8)
+### Phase 2: Core Features 
 - Book management implementation
 - Collection organization features
 - Basic search and filter capabilities
 - Reading progress tracking
 
-### Phase 3: Offline Capabilities (Weeks 9-12)
+### Phase 3: Offline Capabilities
 - Offline-first architecture implementation
 - Background sync mechanism
 - Conflict resolution strategies
 - Offline search and browse capabilities
 
-### Phase 4: Advanced Features (Weeks 13-16)
-- Lending system implementation
+### Phase 4: Advanced Features 
 - Advanced search and filtering
 - Data visualization and statistics
-### Phase 5: Refinement (Weeks 17-20)
+  
+### Phase 5: Refinement
 - Performance optimization
 - User experience refinement
 - Cross-platform testing
@@ -268,11 +266,10 @@ CREATE TABLE SyncLog (
 ## 5. Development Tools
 
 ### Frontend
-- **Framework**: React.js / Vue.js for web, React Native for mobile
+- **Framework**: React.js, React Native 
 - **UI Components**: Material-UI / Tailwind CSS
 - **State Management**: Redux / Vuex
 - **Offline Support**: Workbox / Service Workers
-- **Data Visualization**: D3.js / Chart.js
 
 ### Backend
 - **Server**: Node.js with Express
@@ -290,13 +287,8 @@ CREATE TABLE SyncLog (
 - **IDE**: VS Code with appropriate extensions
 - **Version Control**: Git with GitHub/GitLab
 - **CI/CD**: GitHub Actions / Jenkins
-- **Testing**: Jest, React Testing Library, Cypress
+- **Testing**: Jest, React Testing Library
 - **API Testing**: Postman / Insomnia
-
-### Build & Deployment
-- **Web Bundling**: Webpack / Vite
-- **Mobile Builds**: Expo / React Native CLI
-- **Deployment**: Docker containers with orchestration
 
 ## 6. Success Criteria
 
