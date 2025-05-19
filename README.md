@@ -1,194 +1,183 @@
+# Sustav za upravljanje knjižnicom izvan mreže
 
-# Offline Library Management System
+## Pregled projekta
 
-## Project Overview
+Offline Library je sveobuhvatan sustav za upravljanje knjižnicom dizajniran za potpuno izvanmrežno funkcioniranje, a istovremeno nudi mogućnosti besprijekorne sinkronizacije kada se veza ponovno uspostavi. Aplikacija omogućuje knjižničarima i korisnicima upravljanje zbirkama knjiga, praćenje procesa posudbe/vraćanja i održavanje knjižničnih operacija čak i bez internetske veze. Koristi moderne web tehnologije kako bi pružio responzivno i pouzdano iskustvo u raznim scenarijima povezivosti.
 
-Offline Labrary is a comprehensive library management system designed to function fully offline while offering seamless synchronization capabilities when connectivity is restored. The application enables librarians and users to manage book collections, track borrowing/returning processes, and maintain library operations even without an internet connection. It leverages modern web technologies to provide a responsive, reliable experience in various connectivity scenarios.
+## Ključne značajke
 
-## Key Features
+### Funkcionalnost izvan mreže
+- **Potpuni pristup izvan mreže**: Potpune mogućnosti upravljanja knjižnicom bez internetske veze
+- **Prijava/Odjava izvan mreže**: Obrada posudbe i povrata knjiga čak i izvan mreže
+- **Lokalna pretraga i filtriranje**: Napredne mogućnosti pretraživanja knjiga
 
-### Offline Functionality
-- **Complete Offline Access**: Full library management capabilities without internet connection
-- **Offline Check-in/Check-out**: Process book borrowing and returns even when offline
-- **Local Search and Filtering**: Advanced search capabilities for books, members
+### Sinkronizacija
+- **Sinkronizacija u pozadini**: Automatska sinkronizacija podataka kada se veza obnovi
+- **Rješavanje sukoba**: Pametno spajanje promjena izvan mreže s podacima poslužitelja
+- **Pokazatelji statusa sinkronizacije**: Jasni vizualni pokazatelji statusa sinkronizacije
 
-### Synchronization
-- **Background Sync**: Automatic data synchronization when connection is restored
-- **Conflict Resolution**: Smart merging of offline changes with server data
-- **Sync Status Indicators**: Clear visual indicators of synchronization status
+### Upravljanje podacima
+- **Katalog knjiga**: Sveobuhvatno upravljanje metapodacima knjiga, uključujući naslove, autore, žanrove
+- **Upravljanje članovima**: Praćenje informacija o članovima, povijesti posudbe
+- **Praćenje posudbe**: Praćenje posudbi, povrata
 
-### Data Management
-- **Book Catalog**: Comprehensive book metadata management including titles, authors, genres
-- **Member Management**: Track member information, borrowing history
-- **Circulation Tracking**: Monitor book checkouts, returns, reservations, and due dates
-
-## Technologies Used
+## Korištene tehnologije
 
 ### Frontend
-- **CSS/JavaScript**: Core web technologies
-- **Progressive Web App (PWA)**: For offline capabilities and installable experience
-- **Service Workers**: Enable offline functionality and background synchronization
-- **IndexedDB**: Client-side storage for offline data persistence in browsers
-- **Workbox**: For service worker management and offline caching strategies
+- **CSS/JavaScript**: Osnovne web tehnologije
+- **Progresivna web aplikacija (PWA)**: Za mogućnosti izvan mreže i iskustvo instalacije
+- **Service Workers**: Omogućite funkcionalnost izvan mreže i sinkronizaciju u pozadini
+- **IndexedDB**: Pohrana na strani klijenta za perzistenciju izvanmrežnih podataka u preglednicima
 
 ### Backend
-- **Node.js**: Server-side JavaScript runtime
-- **Express.js**: Web application framework
-- **SQLite**: Local database for desktop application variant
-- **RESTful API**: For client-server communication
+- **Node.js**: Izvršno okruženje JavaScripta na strani poslužitelja
+- **Express.js**: Okvir web aplikacije
+- **SQLite**: Lokalna baza podataka za varijantu desktop aplikacije
+- **RESTful API**: Za komunikaciju klijent-poslužitelj
 
-### Data Storage & Sync
-- **IndexedDB**: Browser-based database for web client offline storage
-- **SQLite**: Embedded database for local storage in desktop variants
-- **Sync Adapters**: Custom middleware for handling data synchronization
-- **JWT**: For secure authentication across online/offline states
+### Pohrana podataka i sinkronizacija
+- **IndexedDB**: Baza podataka temeljena na pregledniku za izvanmrežnu pohranu web klijenta
+- **SQLite**: Ugrađena baza podataka za lokalnu pohranu u varijantama desktop aplikacije
+- **Sync adapteri**: Prilagođeni middleware za rukovanje sinkronizacijom podataka
 
-### Development Tools
-- **Webpack**: Module bundling and build optimization
-- **Babel**: JavaScript compiler for compatibility
-- **ESLint**: Code quality and consistency
-- **Jest**: Testing framework
+### Alati za razvoj
+- **Webpack**: Paketiranje modula i optimizacija izgradnje
+- **Babel**: JavaScript kompajler za kompatibilnost
+- **ESLint**: Kvaliteta i konzistentnost koda
+- **Jest**: Okvir za testiranje
 
-## System Architecture
+## Arhitektura sustava
 
-Offline Library follows a hybrid architecture designed for resilience and offline capabilities:
+Izvanmrežna biblioteka prati hibridnu arhitekturu dizajniranu za otpornost i izvanmrežne mogućnosti:
 
-1. **Client Tier**
-   - Progressive Web App interface with responsive design
-   - Service Workers for intercepting network requests and enabling offline functionality
-   - IndexedDB for client-side data storage and offline operations
-   - Background sync registration for deferred server updates
+1. **Klijentska razina**
+- Progresivni web Sučelje aplikacije s responzivnim dizajnom
+- Servisni radnici za presretanje mrežnih zahtjeva i omogućavanje izvanmrežnih funkcionalnosti
+- IndexedDB za pohranu podataka na strani klijenta i izvanmrežne operacije
+- Registracija sinkronizacije u pozadini za odgođena ažuriranja poslužitelja
 
-2. **Synchronization Layer**
-   - Queue-based sync system for tracking offline changes
-   - Timestamp-based conflict resolution strategies
-   - Differential sync to minimize data transfer
-   - Prioritization system for critical data synchronization
+2. **Sloj sinkronizacije**
+- Sustav sinkronizacije temeljen na redu čekanja za praćenje izvanmrežnih promjena
+- Strategije rješavanja sukoba temeljene na vremenskim oznakama
+- Diferencijalna sinkronizacija za minimiziranje prijenosa podataka
+- Sustav prioritizacije za sinkronizaciju kritičnih podataka
 
-3. **Server Tier**
-   - RESTful API endpoints for CRUD operations
-   - Authentication and authorization services
-   - Master database for centralized data when online
-   - Sync controllers to handle client reconciliation
+3. **Sloj poslužitelja**
+- RESTful API krajnje točke za CRUD operacije
+- Usluge autentifikacije i autorizacije
+- Glavna baza podataka za centralizirane podatke kada je online
+- Kontroleri sinkronizacije za rukovanje usklađivanjem klijenata
 
-4. **Deployment Options**
-   - Cloud-hosted central server
-   - Local network server for institutional deployment
-   - Standalone mode for completely offline operations
+4. **Opcije implementacije**
+- Centralni poslužitelj u oblaku
+- Lokalni mrežni poslužitelj za institucionalnu implementaciju
+- Samostalni način rada za potpuno izvanmrežne operacije
 
-## Data Model
+## Model podataka
 
-### Core Collections/Tables
+### Osnovne kolekcije/tablice
 
-**books**
-- `id`: Unique identifier
-- `title`: Book title
-- `author`: Book author(s)
-- `isbn`: ISBN number
-- `publishDate`: Publication date
-- `category`: Book category/genre
-- `description`: Book description
-- `status`: Available, checked out, reserved, etc.
-- `coverImage`: Book cover image (stored as path or blob)
+**knjige**
+- `id`: Jedinstveni identifikator
+- `title`: Naslov knjige
+- `author`: Autor(i) knjige
+- `publishDate`: Datum objave
+- `category`: Knjiga kategorija/žanr
+- `description`: Opis knjige
+- `coverImage`: Slika naslovnice knjige (pohranjena kao putanja ili blob)
 
 **members**
-- `id`: Unique identifier
-- `name`: Member name
-- `email`: Contact email
-- `phone`: Contact phone
-- `membershipDate`: Date of joining
-- `membershipStatus`: Active, expired, suspended
-- `borrowingLimit`: Maximum books allowed
+- `id`: Jedinstveni identifikator
+- `name`: Ime člana
+- `email`: Kontakt e-mail
+- `phone`: Kontakt telefon
 
 **syncQueue**
-- `id`: Unique operation identifier
-- `operation`: Create, update, delete
-- `entityType`: Books, members, transactions
-- `entityId`: ID of the affected entity
-- `changeData`: Data payload of the change
-- `timestamp`: When the change occurred
-- `priority`: Sync priority level
-- `attempts`: Number of sync attempts
-- `status`: Pending, completed, failed
+- `id`: Jedinstveni identifikator operacije
+- `operation`: Stvaranje, ažuriranje, brisanje
+- `entityType`: Knjige, članovi, transakcije
+- `entityId`: ID pogođenog entiteta
+- `changeData`: Korisni teret podataka promjene
+- `timestamp`: Kada se promjena dogodila
+- `priority`: Razina prioriteta sinkronizacije
+- `attempts`: Broj pokušaja sinkronizacije
+- `status`: Na čekanju, dovršeno, neuspješno
 
-## Setup Instructions
+## Postavljanje Upute
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm (v6 or higher)
-- Modern web browser (for PWA support)
+### Preduvjeti
+- Node.js (v14 ili noviji)
+- npm (v6 ili noviji)
+- Moderni web preglednik (za podršku za PWA)
 
-### Installation
+### Instalacija
 
-1. Clone the repository
-   ```
-   git clone https://github.com/yourusername/library-sync.git
-   cd library-sync
-   ```
+1. Klonirajte repozitorij
+```
+git clone https://github.com/yourusername/library-sync.git
+cd library-sync
+```
 
-2. Install dependencies
-   ```
-   npm install
-   ```
+2. Instalirajte ovisnosti
+```
+npm install
+```
 
-3. Configure environment variables
-   ```
-   cp .env.example .env
-   ```
-   Edit the `.env` file to match your environment
+3. Konfigurirajte varijable okruženja
+```
+cp .env.example .env
+```
+Uredite datoteku `.env` kako bi odgovarala vašem okruženju
 
-4. Initialize the database
+4. Inicijalizirajte bazu podataka
    ```
-   npm run init-db
-   ```
+npm run init-db
+```
 
-5. Start the development server
-   ```
-   npm run dev
-   ```
+5. Pokrenite razvojni poslužitelj
+```
+npm run dev
+```
 
-6. Access the application
-   - Web app: http://localhost:3000
-   - For offline capability, open the app once while online to cache necessary resources
+6. Pristupite aplikaciji
+- Web aplikacija: http://localhost:3000
+- Za izvanmrežni rad, otvorite aplikaciju jednom dok ste online kako biste predmemorirali potrebne resurse
 
-### Building for Production
+### Izrada za produkciju
 ```
 npm run build
 ```
 
-### Project Structure
+### Struktura projekta
 ```
 library-sync/
-├── client/                     # Frontend code
-│   ├── public/                 # Static assets
-│   ├── src/
-│   │   ├── components/         # React components
-│   │   ├── pages/              # Page components
-│   │   ├── services/           # API and sync services
-│   │   ├── utils/              # Utility functions
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── context/            # React context providers
-│   │   ├── serviceWorker.js    # Service worker configuration
-│   │   └── App.js              # Main App component
-│   └── package.json            # Frontend dependencies
-├── server/                     # Backend code
-│   ├── controllers/            # Request handlers
-│   ├── models/                 # Data models
-│   ├── routes/                 # API routes
-│   ├── services/               # Business logic services
-│   ├── utils/                  # Utility functions
-│   ├── db/                     # Database setup and migrations
-│   ├── middleware/             # Express middleware
-│   ├── sync/                   # Synchronization logic
-│   └── server.js               # Server entry point
-├── tests/                      # Unit and integration tests
-├── .env.example                # Example environment variables
-├── README.md                   # Project documentation
-└── package.json                # Project dependencies
+├── client/ # Frontend kod
+│ ├── public/ # Statička sredstva
+│ ├── src/
+│ │ ├── components/ # React komponente
+│ │ ├── pages/ # Komponente stranice
+│ │ ├── services/ # API i usluge sinkronizacije
+│ │ ├── utils/ # Korisne funkcije
+│ │ ├── hooks/ # Prilagođene React hooks
+│ │ ├── context/ # Pružatelji React konteksta
+│ │ ├── serviceWorker.js # Konfiguracija Service workera
+│ │ └── App.js # Glavna komponenta aplikacije
+│ └── package.json # Ovisnosti frontenda
+├── server/ # Backend kod
+│ ├── controllers/ # Obrađivači zahtjeva
+│ ├── models/ # Modeli podataka
+│ ├── routes/ # API rute
+│ ├── services/ # Usluge poslovne logike
+│ ├── utils/ # Pomoćne funkcije
+│ ├── db/ # Postavljanje i migracije baze podataka
+│ ├── middleware/ # Express middleware
+│ ├── sync/ # Logika sinkronizacije
+│ └── server.js # Ulazna točka poslužitelja
+├── tests/ # Jedinični i integracijski testovi
+├── .env.example # Primjer varijabli okruženja
+├── README.md # Dokumentacija projekta
+└── package.json # Ovisnosti projekta
 ```
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-
-
+## Licenca
+Ovaj projekt je licenciran pod MIT licencom - detalje potražite u datoteci LICENSE.
