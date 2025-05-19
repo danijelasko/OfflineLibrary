@@ -151,33 +151,34 @@ npm run build
 ### Struktura projekta
 ```
 library-sync/
-├── client/ # Frontend kod
-│ ├── public/ # Statička sredstva
-│ ├── src/
-│ │ ├── components/ # React komponente
-│ │ ├── pages/ # Komponente stranice
-│ │ ├── services/ # API i usluge sinkronizacije
-│ │ ├── utils/ # Korisne funkcije
-│ │ ├── hooks/ # Prilagođene React hooks
-│ │ ├── context/ # Pružatelji React konteksta
-│ │ ├── serviceWorker.js # Konfiguracija Service workera
-│ │ └── App.js # Glavna komponenta aplikacije
-│ └── package.json # Ovisnosti frontenda
-├── server/ # Backend kod
-│ ├── controllers/ # Obrađivači zahtjeva
-│ ├── models/ # Modeli podataka
-│ ├── routes/ # API rute
-│ ├── services/ # Usluge poslovne logike
-│ ├── utils/ # Pomoćne funkcije
-│ ├── db/ # Postavljanje i migracije baze podataka
-│ ├── middleware/ # Express middleware
-│ ├── sync/ # Logika sinkronizacije
-│ └── server.js # Ulazna točka poslužitelja
-├── tests/ # Jedinični i integracijski testovi
-├── .env.example # Primjer varijabli okruženja
-├── README.md # Dokumentacija projekta
-└── package.json # Ovisnosti projekta
+├── client/                     # Frontend code
+│   ├── public/                 # Static assets
+│   ├── src/
+│   │   ├── components/         # React components
+│   │   ├── pages/              # Page components
+│   │   ├── services/           # API and sync services
+│   │   ├── utils/              # Utility functions
+│   │   ├── hooks/              # Custom React hooks
+│   │   ├── context/            # React context providers
+│   │   ├── serviceWorker.js    # Service worker configuration
+│   │   └── App.js              # Main App component
+│   └── package.json            # Frontend dependencies
+├── server/                     # Backend code
+│   ├── controllers/            # Request handlers
+│   ├── models/                 # Data models
+│   ├── routes/                 # API routes
+│   ├── services/               # Business logic services
+│   ├── utils/                  # Utility functions
+│   ├── db/                     # Database setup and migrations
+│   ├── middleware/             # Express middleware
+│   ├── sync/                   # Synchronization logic
+│   └── server.js               # Server entry point
+├── tests/                      # Unit and integration tests
+├── .env.example                # Example environment variables
+├── README.md                   # Project documentation
+└── package.json                # Project dependencies
 ```
+
 
 ## Licenca
 Ovaj projekt je licenciran pod MIT licencom - detalje potražite u datoteci LICENSE.
