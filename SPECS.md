@@ -7,7 +7,6 @@
 - Implementirati robustan mehanizam sinkronizacije za nesmetan prijelaz između online i izvanmrežnog načina rada
 - Pružiti intuitivno korisničko iskustvo za upravljanje osobnim i dijeljenim knjižnicama
 - Osigurati integritet podataka na više uređaja i platformi
-- Podržati kompatibilnost između različitih platformi (web, stolna računala i mobilni uređaji)
 
 ### 1.2 Komponente sustava
 - **Sloj lokalne pohrane**: SQLite za izvorne aplikacije, IndexedDB za aplikacije temeljene na pregledniku
@@ -21,23 +20,20 @@
 ### 2.1 Osnovne značajke
 
 #### Upravljanje knjižnicom
-- Katalogizacija knjiga s opsežnim metapodacima (naslov, autor, ISBN, datum objave, žanr itd.)
-- Organizacija zbirke s prilagođenim policama i oznakama
+- Katalogizacija knjiga s metapodacima (naslov, autor, godina objave, žanr, fotografija naslovnice)
+- Mogućnosti filtriranja prema žanrovima
 - Napredno pretraživanje i mogućnosti filtriranja koje rade izvan mreže
-- Povijest čitanja i praćenje napretka
+- Povijest čitanja
 - Sustav posudbe s podsjetnicima na datume dospijeća
 #### Upravljanje korisnicima
 - Korisnički profili s postavkama čitanja
-- Ciljevi i postignuća čitanja
 - Društvene značajke (recenzije, preporuke) koje se sinkroniziraju kada su online
-- Administratorske mogućnosti za dijeljene/institucionalne knjižnice
 
 #### Mogućnosti izvan mreže
 - Potpuni pristup svim funkcijama knjižnice bez internetske veze
 - Unos i izmjena podataka izvan mreže
 - Funkcija pretraživanja i pregledavanja u predmemoriji
 - Sadržaj medija izvan mreže (naslovnice knjiga, pregledi)
-- Statistika i analitika čitanja u izvanmrežnom načinu rada
 - Mogućnosti izvoza/uvoza za potrebe sigurnosne kopije
 
 #### Značajke sinkronizacije
@@ -47,86 +43,48 @@
 - Pokazatelji statusa sinkronizacije i povijest
 - Sinkronizacija temeljena na prioritetu za kritične podatke
 
-### 2.2 Proširene značajke
-- Integracija s vanjskim bazama podataka o knjigama (Google knjige, Open Library)
-- Integracija čitača e-knjiga
-- Preporuke za čitanje na temelju sadržaja knjižnice
-- Vizualizacija podataka za navike čitanja i sastav knjižnice
-- Mogućnosti dijeljenja popisa za čitanje i preporuka
-
-## 3. Tehnička specifikacija
-
-### 3.1 Dizajn baze podataka
-
 #### SQLite shema (izvorne aplikacije)
 ```sql
-CREATE TABLE Knjige (
-id_knjige TEKST PRIMARY KEY,
-naslov TEKST NIJE NULL,
-autor TEKST,
-isbn TEKST,
-datum_objave TEKST,
-izdavač TEKST,
-žanr TEKST,
-opis TEKST,
-slika_naslovnice BLOB,
-datum_dodavanja TEKST NIJE NULL,
-datum_modifikacije TEKST NIJE NULL,
-status_sync_status INTEGER DEFAULT 0
+cursor.executescript("""
+CREATE TABLE IF NOT EXISTS Genres (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE Kolekcije (
-id_kolekcije TEKST PRIMARY KEY,
-naziv TEKST NIJE NULL,
-opis TEKST,
-datum_kreacije TEKST NIJE NULL,
-datum_modifikacije TEKST NIJE NULL,
-status_sync_status INTEGER DEFAULT 0
+CREATE TABLE IF NOT EXISTS Books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    year INTEGER,
+    genre_id INTEGER,
+    available_copies INTEGER DEFAULT 1,
+    description TEXT DEFAULT '',
+    image TEXT DEFAULT '',
+    FOREIGN KEY (genre_id) REFERENCES Genres(id)
 );
 
-STVORI TABLICU Zbirke_knjiga (
-id_knjige TEKST,
-id_kolekcije TEKST,
-datum_dodavanja TEKST NIJE NULL,
-PRIMARNI KLJUČ (id_knjige, id_kolekcije),
-STRANI KLJUČ (id_knjige) REFERENCE Knjige(id_knjige),
-STRANI KLJUČ (id_kolekcije) REFERENCE Kolekcije(id_kolekcije)
+
+CREATE TABLE IF NOT EXISTS  Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    first_name TEXT,
+    last_name TEXT,
+    phone TEXT
 );
 
-STVORI TABLICU Napredak_čitanja (
-progress_id TEKST PRIMARNI KLJUČ,
-id_knjige TEKST,
-korisnički_id TEKST,
-broj_stranice CIJELI BROJ,
-postotak REALAN,
-datum_zadnjeg_čitanja TEKST NIJE NULL,
-bilješke TEKST,
-status_sinkronizacije CIJELI BROJ ZADANO 0,
-STRANI KLJUČ (id_knjige) REFERENCE Knjige(id_knjige)
+CREATE TABLE IF NOT EXISTS Loans (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    loan_date TEXT NOT NULL,
+    return_date TEXT,
+    FOREIGN KEY (book_id) REFERENCES Books(id),
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+""")
 
-STVORI TABLICU LoanRecords (
-id_knjige TEKST PRIMARNI KLJUČ,
-id_knjige TEKST,
-ime_posuđivača TEKST NIJE NULL,
-kontakt_posuđivača TEKST,
-datum_knjige TEKST NIJE NULL,
-datum_dospijeća TEKST,
-datum_povrata TEKST,
-status TEKST NIJE NULL,
-status_sync INTEGER DEFAULT 0,
-STRANI KLJUČ (id_knjige) REFERENCE Knjige(id_knjige)
-);
-
-STVORI TABLICU SyncLog (
-id_dnevnika INTEGER PRIMARNI KLJUČ AUTOINCREMENT,
-vrsta_entiteta TEKST NIJE NULL,
-id_entiteta TEKST NIJE NULL,
-vrsta_akcije TEKST NIJE NULL,
-vremenska_oznaka TEKST NIJE NULL,
-status TEKST NIJE NULL
-);
-```
 
 #### IndexedDB shema (aplikacije temeljene na pregledniku)
 ```javascript
@@ -136,7 +94,6 @@ keyPath: "book_id",
 indexes: [
 { name: "title", keyPath: "title", options: { unique: false } },
 { name: "author", keyPath: "author", options: { unique: false } },
-{ name: "isbn", keyPath: "isbn", options: { unique: true } },
 { name: "žanr", keyPath: "žanr", options: { unique: false } },
 { name: "sync_status", keyPath: "sync_status", options: { unique: false } }
 ]
